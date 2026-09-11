@@ -1,1 +1,1031 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Amjad Ataallah — Principal Software Engineer</title>
+<meta name="description" content="Principal software engineer and technical team lead with 15+ years building health information systems, integration platforms and enterprise software. PhD candidate in Complex Systems Engineering at the University of Salento.">
+<link rel="canonical" href="https://ataallah.github.io/">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Amjad Ataallah — Principal Software Engineer">
+<meta property="og:description" content="Fifteen years of building systems that health services actually run on.">
+<meta property="og:url" content="https://ataallah.github.io/">
+<meta property="og:image" content="https://ataallah.github.io/avatar.jpg">
+<link rel="icon" href="avatar.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --navy-900: #071726;
+  --navy-800: #0b2131;
+  --navy-700: #133045;
+  --paper:    #fafaf7;
+  --surface:  #ffffff;
+  --ink:      #101d28;
+  --muted:    #5a6b78;
+  --faint:    #8c9aa4;
+  --line:     #e3e4de;
+  --line-dark:rgba(255,255,255,.13);
+
+  --accent:        #0e7a6b;   /* on light */
+  --accent-bright: #43d6be;   /* on dark  */
+  --accent-wash:   #e7f3f0;
+
+  --display: "Fraunces", Georgia, serif;
+  --sans: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --shell: 74rem;
+  --pad: clamp(1.25rem, 5vw, 4rem);
+  --nav-h: 4rem;
+
+  --ease: cubic-bezier(.22,.75,.28,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16.5px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -.02em; }
+p { margin: 0 0 1.1rem; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--accent); text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.shell {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding-inline: var(--pad);
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--navy-900);
+  color: #fff;
+  padding: .75rem 1.25rem;
+  z-index: 100;
+}
+.skip:focus { left: .5rem; top: .5rem; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--nav-h);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  transition: background .35s var(--ease), box-shadow .35s var(--ease);
+}
+.nav.is-stuck {
+  background: rgba(250,250,247,.86);
+  backdrop-filter: saturate(150%) blur(14px);
+  -webkit-backdrop-filter: saturate(150%) blur(14px);
+  box-shadow: 0 1px 0 var(--line);
+}
+.nav .shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--display);
+  font-size: 1.02rem;
+  color: #fff;
+  transition: color .35s var(--ease);
+}
+.nav.is-stuck .brand { color: var(--ink); }
+.brand .dot {
+  width: .5rem; height: .5rem;
+  border-radius: 50%;
+  background: var(--accent-bright);
+  flex: none;
+  transition: background .35s var(--ease);
+}
+.nav.is-stuck .brand .dot { background: var(--accent); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  margin: 0; padding: 0;
+  list-style: none;
+  font-size: .9rem;
+}
+.nav-links a {
+  color: rgba(255,255,255,.72);
+  padding: .35rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color .25s var(--ease), border-color .25s var(--ease);
+}
+.nav.is-stuck .nav-links a { color: var(--muted); }
+.nav-links a:hover,
+.nav-links a.is-active { color: #fff; border-bottom-color: var(--accent-bright); }
+.nav.is-stuck .nav-links a:hover,
+.nav.is-stuck .nav-links a.is-active { color: var(--ink); border-bottom-color: var(--accent); }
+
+@media (max-width: 56rem) { .nav-links { display: none; } }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--sans);
+  font-size: .9rem;
+  font-weight: 500;
+  padding: .6rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background .25s var(--ease), color .25s var(--ease),
+              border-color .25s var(--ease), transform .25s var(--ease);
+}
+.btn-ghost {
+  border-color: rgba(255,255,255,.28);
+  color: #fff;
+}
+.btn-ghost:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.5); }
+.nav.is-stuck .btn-ghost { border-color: var(--line); color: var(--ink); }
+.nav.is-stuck .btn-ghost:hover { background: var(--accent-wash); border-color: var(--accent); color: var(--accent); }
+
+.btn-solid { background: var(--accent-bright); color: var(--navy-900); }
+.btn-solid:hover { background: #5ee6cf; transform: translateY(-1px); }
+
+.btn-outline { border-color: var(--line); color: var(--ink); background: var(--surface); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  background: var(--navy-900);
+  color: #fff;
+  padding: calc(var(--nav-h) + clamp(3.5rem, 9vw, 7rem)) 0 clamp(3rem, 6vw, 5rem);
+  overflow: hidden;
+}
+.hero::after {
+  /* soft depth behind the graphic, not a decorative gradient wash */
+  content: "";
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 55rem; height: 55rem;
+  background: radial-gradient(circle, rgba(67,214,190,.11), transparent 62%);
+  pointer-events: none;
+}
+.hero .shell { position: relative; z-index: 1; }
+
+.hero-grid {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4rem);
+  align-items: center;
+}
+@media (min-width: 62rem) {
+  .hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+}
+
+.avatar {
+  display: block;
+  width: clamp(5rem, 9vw, 6.75rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.75rem;
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: 0 0 0 6px rgba(67,214,190,.07), 0 18px 42px rgba(0,0,0,.4);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .88rem;
+  color: var(--accent-bright);
+  margin-bottom: 1.5rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 2rem; height: 1px;
+  background: var(--accent-bright);
+}
+
+.hero h1 {
+  font-size: clamp(2.9rem, 7.5vw, 5.1rem);
+  line-height: 1.02;
+  letter-spacing: -.035em;
+  margin: 0 0 1.5rem;
+  font-weight: 300;
+}
+.hero .lede {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2.3vw, 1.55rem);
+  line-height: 1.5;
+  color: rgba(255,255,255,.82);
+  max-width: 36ch;
+  margin-bottom: 2.25rem;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+/* fact strip */
+.facts {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-dark);
+}
+@media (min-width: 44rem) { .facts { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
+
+.fact .k {
+  font-family: var(--display);
+  font-size: 1.9rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: #fff;
+  display: block;
+  margin-bottom: .3rem;
+}
+.fact .v { font-size: .92rem; color: rgba(255,255,255,.6); line-height: 1.5; }
+
+/* network graphic */
+.net { width: 100%; height: auto; max-width: 30rem; margin-inline: auto; display: block; }
+.net .edge {
+  stroke: rgba(67,214,190,.42);
+  stroke-width: 1.1;
+  fill: none;
+  stroke-dasharray: 5 9;
+  animation: flow 3.4s linear infinite;
+}
+.net .edge.slow { animation-duration: 5.2s; }
+.net .edge.rev  { animation-direction: reverse; }
+@keyframes flow { to { stroke-dashoffset: -28; } }
+
+.net .halo { fill: rgba(67,214,190,.12); transform-origin: center; animation: breathe 4s ease-in-out infinite; }
+.net .halo.d1 { animation-delay: -1.2s; }
+.net .halo.d2 { animation-delay: -2.4s; }
+.net .halo.d3 { animation-delay: -3.1s; }
+@keyframes breathe { 0%,100% { opacity:.55; transform: scale(1); } 50% { opacity:1; transform: scale(1.16); } }
+
+.net .node { fill: var(--navy-900); stroke: var(--accent-bright); stroke-width: 1.6; }
+.net .core { fill: var(--accent-bright); stroke: none; }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section { padding: clamp(4rem, 9vw, 7rem) 0; }
+.section + .section { border-top: 1px solid var(--line); }
+
+.section-head { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); max-width: 52rem; }
+.section-head .kicker {
+  display: block;
+  font-size: .85rem;
+  color: var(--accent);
+  margin-bottom: .85rem;
+}
+.section-head h2 {
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  line-height: 1.12;
+  margin: 0;
+}
+.section-head p {
+  margin-top: 1rem;
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+/* ---- about ---- */
+.about-grid { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+@media (min-width: 58rem) { .about-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } }
+.about-text p { color: var(--muted); max-width: 62ch; }
+.about-text strong { color: var(--ink); font-weight: 500; }
+
+.aside {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+.aside h3 { font-size: 1.15rem; margin: 0 0 1.25rem; }
+.aside dl { margin: 0; display: grid; gap: 1rem; }
+.aside dt { font-size: .82rem; color: var(--faint); margin-bottom: .1rem; }
+.aside dd { margin: 0; font-size: .95rem; }
+.aside dd a { border-bottom: 1px solid var(--accent-wash); }
+.aside dd a:hover { border-bottom-color: var(--accent); }
+
+/* ---- timeline ---- */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: .3rem; top: .5rem; bottom: .5rem;
+  width: 1px;
+  background: var(--line);
+}
+@media (min-width: 50rem) { .timeline { padding-left: 2.75rem; } }
+
+.job { position: relative; padding-bottom: 3rem; }
+.job:last-child { padding-bottom: 0; }
+.job::before {
+  content: "";
+  position: absolute;
+  left: -1.85rem; top: .55rem;
+  width: .7rem; height: .7rem;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  transition: background .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+}
+@media (min-width: 50rem) { .job::before { left: -2.6rem; } }
+.job.is-visible::before {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-wash);
+}
+
+.job .when { font-size: .85rem; color: var(--faint); margin-bottom: .4rem; }
+.job h3 { font-size: clamp(1.2rem, 2.4vw, 1.5rem); margin: 0 0 .2rem; }
+.job .where { font-size: .95rem; color: var(--accent); margin-bottom: .9rem; }
+.job ul { margin: 0; padding-left: 1.1rem; color: var(--muted); max-width: 64ch; }
+.job li { margin-bottom: .45rem; }
+.job li::marker { color: var(--faint); }
+
+/* ---- projects ---- */
+.projects { border-top: 1px solid var(--line); }
+.project {
+  display: grid;
+  gap: .5rem 2.5rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  transition: background .3s var(--ease);
+}
+@media (min-width: 50rem) {
+  .project { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); padding: 2.25rem 1.25rem; margin-inline: -1.25rem; border-radius: 10px; }
+  .project:hover { background: var(--surface); }
+}
+.project h3 { font-size: 1.3rem; margin: 0; line-height: 1.25; }
+.project .scope { font-size: .85rem; color: var(--faint); margin-top: .35rem; }
+.project p { color: var(--muted); max-width: 62ch; margin-bottom: .9rem; }
+
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.tags li {
+  font-size: .78rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: .15rem .5rem;
+  background: var(--surface);
+}
+
+/* ---- expertise ---- */
+.stack { display: grid; gap: 2rem; }
+@media (min-width: 46rem) { .stack { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 3rem; } }
+@media (min-width: 70rem) { .stack { grid-template-columns: repeat(4, 1fr); } }
+.stack h3 { font-size: 1.08rem; margin: 0 0 .9rem; padding-bottom: .75rem; border-bottom: 1px solid var(--line); }
+.stack ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .45rem; font-size: .95rem; color: var(--muted); }
+
+/* ---- research ---- */
+.res-grid { display: grid; gap: clamp(2.5rem, 5vw, 3.5rem); }
+@media (min-width: 58rem) { .res-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.res-block h3 { font-size: 1.25rem; margin: 0 0 1.25rem; }
+
+.record { padding: 1.1rem 0; border-top: 1px solid var(--line); }
+.record:first-of-type { border-top: 0; padding-top: 0; }
+.record .t { font-family: var(--display); font-size: 1.05rem; line-height: 1.35; margin: 0 0 .25rem; }
+.record .m { font-size: .9rem; color: var(--muted); margin: 0; }
+.record .m a { border-bottom: 1px solid var(--accent-wash); }
+.record .m a:hover { border-bottom-color: var(--accent); }
+
+/* ---- contact ---- */
+.contact {
+  background: var(--navy-900);
+  color: #fff;
+  padding: clamp(4rem, 9vw, 7rem) 0;
+}
+.contact h2 { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.08; margin: 0 0 1.25rem; font-weight: 300; }
+.contact .lede { color: rgba(255,255,255,.72); max-width: 48ch; margin-bottom: 2.75rem; }
+
+.mail {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 3.6vw, 2.1rem);
+  color: var(--accent-bright);
+  letter-spacing: -.02em;
+  padding-bottom: .2rem;
+  border-bottom: 1px solid rgba(67,214,190,.35);
+  transition: border-color .3s var(--ease);
+  word-break: break-word;
+}
+.mail:hover { border-bottom-color: var(--accent-bright); }
+
+.reach {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-dark);
+}
+@media (min-width: 44rem) { .reach { grid-template-columns: repeat(3, 1fr); } }
+.reach dt { font-size: .82rem; color: rgba(255,255,255,.45); margin-bottom: .25rem; }
+.reach dd { margin: 0; font-size: .98rem; color: rgba(255,255,255,.9); }
+.reach dd a { color: #fff; border-bottom: 1px solid rgba(255,255,255,.25); }
+.reach dd a:hover { border-bottom-color: var(--accent-bright); }
+
+.foot {
+  background: var(--navy-900);
+  color: rgba(255,255,255,.4);
+  font-size: .85rem;
+  padding-bottom: 2.5rem;
+}
+.foot .shell { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; }
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(1.1rem);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .net .edge, .net .halo { animation: none; }
+  .net .edge { stroke-dasharray: none; }
+  * { transition-duration: .01ms !important; }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  .nav, .net, .hero::after, .hero-actions { display: none; }
+  body { background: #fff; font-size: 10.5pt; }
+  .hero, .contact, .foot { background: #fff; color: #000; padding-block: 1rem; }
+  .hero h1 { font-size: 24pt; }
+  .avatar { width: 70px; box-shadow: none; border-color: #999; }
+  .hero .lede, .contact .lede, .fact .v, .reach dd { color: #000; }
+  .mail, .reach dd a { color: #000; }
+  .section { padding-block: 1.25rem; }
+  .job, .project, .record { break-inside: avoid; }
+  [data-reveal] { opacity: 1; transform: none; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="shell">
+    <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>Amjad Ataallah</a>
+    <nav aria-label="Sections">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#research">Research</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-ghost" href="#contact">Get in touch</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="top">
+    <div class="shell">
+      <div class="hero-grid">
+        <div>
+          <img class="avatar" src="avatar.jpg" width="640" height="640" alt="Amjad Ataallah" data-reveal>
+          <span class="eyebrow" data-reveal style="--d:60ms">Principal Software Engineer &amp; Technical Team Lead</span>
+          <h1 data-reveal style="--d:90ms">Amjad&nbsp;Ataallah</h1>
+          <p class="lede" data-reveal style="--d:180ms">
+            Fifteen years of building the systems a health service actually runs on —
+            and research into how those systems talk to each other.
+          </p>
+          <div class="hero-actions" data-reveal style="--d:260ms">
+            <a class="btn btn-solid" href="#projects">See selected work</a>
+            <a class="btn btn-ghost" href="mailto:ataallah.amjad@gmail.com">Email me</a>
+          </div>
+        </div>
+
+        <div data-reveal style="--d:320ms">
+          <svg class="net" viewBox="0 0 400 360" role="img" aria-label="Illustration of connected systems exchanging data">
+            <g>
+              <path class="edge" d="M200 180 L 80 90"/>
+              <path class="edge slow" d="M200 180 L 320 90"/>
+              <path class="edge rev" d="M200 180 L 60 230"/>
+              <path class="edge" d="M200 180 L 340 240"/>
+              <path class="edge slow rev" d="M200 180 L 150 310"/>
+              <path class="edge" d="M200 180 L 275 305"/>
+              <path class="edge slow" d="M80 90 L 320 90"/>
+              <path class="edge rev" d="M60 230 L 150 310"/>
+              <path class="edge slow" d="M340 240 L 275 305"/>
+            </g>
+            <g>
+              <circle class="halo" cx="80" cy="90" r="18"/>
+              <circle class="halo d1" cx="320" cy="90" r="18"/>
+              <circle class="halo d2" cx="60" cy="230" r="18"/>
+              <circle class="halo d3" cx="340" cy="240" r="18"/>
+              <circle class="halo d1" cx="150" cy="310" r="18"/>
+              <circle class="halo d2" cx="275" cy="305" r="18"/>
+              <circle class="halo" cx="200" cy="180" r="34"/>
+            </g>
+            <g>
+              <circle class="node" cx="80" cy="90" r="8"/>
+              <circle class="node" cx="320" cy="90" r="8"/>
+              <circle class="node" cx="60" cy="230" r="8"/>
+              <circle class="node" cx="340" cy="240" r="8"/>
+              <circle class="node" cx="150" cy="310" r="8"/>
+              <circle class="node" cx="275" cy="305" r="8"/>
+              <circle class="core" cx="200" cy="180" r="13"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="facts">
+        <div class="fact" data-reveal style="--d:120ms">
+          <span class="k">15+ years</span>
+          <span class="v">Engineering, architecture and technical leadership across health, telecom and public sector systems</span>
+        </div>
+        <div class="fact" data-reveal style="--d:200ms">
+          <span class="k">Since 2016</span>
+          <span class="v">Principal engineer at the Palestinian Ministry of Health, Ramallah</span>
+        </div>
+        <div class="fact" data-reveal style="--d:280ms">
+          <span class="k">PhD candidate</span>
+          <span class="v">Complex Systems Engineering, University of Salento, Italy</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="section" id="about">
+    <div class="shell">
+      <div class="about-grid">
+        <div class="about-text" data-reveal>
+          <div class="section-head">
+            <span class="kicker">About</span>
+            <h2>I design systems that have to keep working</h2>
+          </div>
+          <p>
+            I started as a full-stack developer in 2007 and have spent the years since moving
+            steadily toward the architectural end of the problem: how services talk to one another,
+            how data survives the trip between them, and how a team stays productive while
+            replacing something that is already in production.
+          </p>
+          <p>
+            Most of that work has been in <strong>health informatics</strong> — national
+            information platforms, disease surveillance, electronic health records — but the
+            engineering has never been specific to it. A fleet management system for law
+            enforcement and a fiber-line portal with live router telemetry pose the same
+            questions: clear domain models, dependable integration, and interfaces people can
+            actually use under pressure.
+          </p>
+          <p>
+            Alongside the engineering, I lead teams. I've built one from recruitment through
+            delivery, run root-cause sessions across functions, and mentored ministry staff so that
+            systems outlast the people who installed them. I'm now doing a PhD in
+            <strong>Complex Systems Engineering</strong>, working on data spaces for healthcare:
+            architectures that let organisations exchange clinical data across borders while each
+            keeps authority over its own records.
+          </p>
+        </div>
+
+        <aside class="aside" data-reveal style="--d:120ms">
+          <h3>At a glance</h3>
+          <dl>
+            <div>
+              <dt>Current role</dt>
+              <dd>Principal Software Engineer &amp; Technical Team Lead, Palestinian Ministry of Health</dd>
+            </div>
+            <div>
+              <dt>Based in</dt>
+              <dd>Tulkarm, Palestine</dd>
+            </div>
+            <div>
+              <dt>Working with</dt>
+              <dd>WHO, PNIPH, HISP, and the Italian Agency for Development Cooperation</dd>
+            </div>
+            <div>
+              <dt>Also</dt>
+              <dd>Member of the Palestinian National Artificial Intelligence Taskforce, Ministry of Telecommunications</dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>Arabic (native), English (advanced)</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCE ===================== -->
+  <section class="section" id="experience">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Experience</span>
+        <h2>Where the work has taken place</h2>
+      </div>
+
+      <div class="timeline">
+
+        <article class="job" data-reveal>
+          <p class="when">March 2016 — present</p>
+          <h3>Principal Software Engineer &amp; Technical Team Lead</h3>
+          <p class="where">Palestinian Ministry of Health, Ramallah</p>
+          <ul>
+            <li>Technical lead for the national health information platform: architecture, integration with ministry systems, and migration of family health and maternal &amp; child health programmes onto a common data model aligned with WHO standards.</li>
+            <li>Designed and implemented case-based surveillance and Integrated Disease Surveillance and Response systems supporting outbreak detection, early warning and national reporting.</li>
+            <li>Built integration between warehouse, pharmacy and family health programmes using HL7 FHIR and platform APIs — presented as a reference approach at an international conference.</li>
+            <li>Project coordinator and lead implementer of HAEMOPAL, a cloud EHR for congenital bleeding disorders and thalassemia, designed with hematologists and delivered with Italian development cooperation.</li>
+            <li>Partnered with WHO, PNIPH and HISP on platform design, reporting compliance and data quality; mentored ministry engineering teams to keep systems locally owned.</li>
+          </ul>
+        </article>
+
+        <article class="job" data-reveal>
+          <p class="when">July 2015 — October 2019</p>
+          <h3>Technical Team Lead</h3>
+          <p class="where">Sanapix</p>
+          <ul>
+            <li>Led a software engineering team through the full delivery lifecycle, from hiring to release.</li>
+            <li>Ran cross-functional root-cause analysis on production incidents, shortening time to resolution.</li>
+            <li>Worked directly with clients and product owners to keep delivery aligned with business goals.</li>
+          </ul>
+        </article>
+
+        <article class="job" data-reveal>
+          <p class="when">August 2012 — June 2015</p>
+          <h3>Senior Software Engineer</h3>
+          <p class="where">ART Technologies, Ramallah</p>
+          <ul>
+            <li>Designed and built a fleet management system for law enforcement, plus portals for telecom fiber line operations.</li>
+            <li>Delivered API integrations and real-time dashboards over CISCO router telemetry for network monitoring and resource allocation.</li>
+            <li>Led technical analysis and requirements work with an emphasis on accessibility and security compliance.</li>
+          </ul>
+        </article>
+
+        <article class="job" data-reveal>
+          <p class="when">January 2007 — October 2011</p>
+          <h3>Full Stack Web Developer</h3>
+          <p class="where">Alternative Business Solutions, Ramallah</p>
+          <ul>
+            <li>Built responsive web applications in PHP, JavaScript and jQuery for a range of business clients.</li>
+            <li>Maintained the surrounding infrastructure and shipped new features alongside product teams.</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section class="section" id="projects">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Selected work</span>
+        <h2>Four systems worth describing</h2>
+        <p>A cross-section rather than a catalogue — clinical, national-scale, operational and telecom.</p>
+      </div>
+
+      <div class="projects">
+
+        <article class="project" data-reveal>
+          <div>
+            <h3>HAEMOPAL</h3>
+            <p class="scope">Electronic health record · Palestinian Ministry of Health with Agenzia Italiana per la Cooperazione allo Sviluppo</p>
+          </div>
+          <div>
+            <p>
+              A cloud EHR built specifically for congenital bleeding disorders and thalassemia.
+              Clinicians get one secure record per patient covering history, laboratory results and
+              treatment plans, so care stays continuous as patients move between centres. Designed
+              jointly with hematologists and now in use across Palestine.
+            </p>
+            <ul class="tags">
+              <li>Clinical data modelling</li><li>Secure cloud access</li><li>Longitudinal records</li><li>Stakeholder co-design</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project" data-reveal>
+          <div>
+            <h3>National health information platform</h3>
+            <p class="scope">Multi-programme integration · Ministry of Health</p>
+          </div>
+          <div>
+            <p>
+              Consolidating separate health programmes onto shared infrastructure with a common
+              data model — family health, maternal and child health, warehouse and pharmacy —
+              connected through HL7 FHIR and platform APIs, and surfaced to decision-makers as
+              live indicator dashboards rather than monthly spreadsheets.
+            </p>
+            <ul class="tags">
+              <li>HL7 FHIR</li><li>REST APIs</li><li>ETL</li><li>Data quality</li><li>Analytics dashboards</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project" data-reveal>
+          <div>
+            <h3>Disease surveillance and response</h3>
+            <p class="scope">Case-based surveillance and IDSR · national deployment</p>
+          </div>
+          <div>
+            <p>
+              Case-based surveillance and Integrated Disease Surveillance and Response systems
+              covering the reporting chain from facility to national level, built for outbreak
+              detection and timeliness, with training programmes so the platform stays operable
+              by ministry staff.
+            </p>
+            <ul class="tags">
+              <li>Event-based data capture</li><li>Early warning</li><li>National rollout</li><li>Capacity building</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project" data-reveal>
+          <div>
+            <h3>Fleet management &amp; fiber operations</h3>
+            <p class="scope">Law enforcement and telecom · ART Technologies</p>
+          </div>
+          <div>
+            <p>
+              A full-stack fleet management system for law enforcement, and operations portals for
+              telecom fiber lines with dashboards fed by live CISCO router telemetry. Different
+              domain, same core problem: reliable integration and a view that holds up when
+              someone has to act on it immediately.
+            </p>
+            <ul class="tags">
+              <li>Full-stack architecture</li><li>Live telemetry</li><li>System integration</li><li>Operational dashboards</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERTISE ===================== -->
+  <section class="section" id="expertise">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Expertise</span>
+        <h2>What I build with</h2>
+      </div>
+
+      <div class="stack">
+        <div data-reveal>
+          <h3>Backend</h3>
+          <ul>
+            <li>Java &amp; Spring Boot</li>
+            <li>PHP &amp; Laravel</li>
+            <li>Python</li>
+            <li>Microservices</li>
+            <li>REST and SOAP services</li>
+          </ul>
+        </div>
+        <div data-reveal style="--d:80ms">
+          <h3>Frontend</h3>
+          <ul>
+            <li>React</li>
+            <li>JavaScript</li>
+            <li>Responsive interface work</li>
+            <li>Dashboard and data visualisation</li>
+          </ul>
+        </div>
+        <div data-reveal style="--d:160ms">
+          <h3>Data &amp; integration</h3>
+          <ul>
+            <li>HL7 FHIR</li>
+            <li>ETL pipelines</li>
+            <li>MySQL and Oracle</li>
+            <li>API and legacy system integration</li>
+            <li>Data quality and validation</li>
+          </ul>
+        </div>
+        <div data-reveal style="--d:240ms">
+          <h3>Practice</h3>
+          <ul>
+            <li>Technical leadership</li>
+            <li>Architecture and requirements</li>
+            <li>Git, CI/CD, Linux</li>
+            <li>Mentoring and capacity building</li>
+            <li>Working with international partners</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RESEARCH ===================== -->
+  <section class="section" id="research">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Research &amp; education</span>
+        <h2>The academic half</h2>
+        <p>
+          My doctoral work asks how health data can move between institutions and across borders
+          without any participant losing control of it — interoperability models, federated
+          architecture, and what the evidence actually supports.
+        </p>
+      </div>
+
+      <div class="res-grid">
+        <div class="res-block" data-reveal>
+          <h3>Education</h3>
+          <div class="record">
+            <p class="t">PhD in Complex Systems Engineering</p>
+            <p class="m">University of Salento, Italy — 2026 to present</p>
+          </div>
+          <div class="record">
+            <p class="t">MSc in Health Informatics</p>
+            <p class="m">Arab American University, Palestine — 2019 to 2022</p>
+          </div>
+          <div class="record">
+            <p class="t">BSc in Computer Science</p>
+            <p class="m">An-Najah National University, Palestine — 2002 to 2007</p>
+          </div>
+        </div>
+
+        <div class="res-block" data-reveal style="--d:120ms">
+          <h3>Publications &amp; talks</h3>
+          <div class="record">
+            <p class="t">
+              Quality improvement dashboard for healthcare providers and targeted client
+              communication to pregnant women to improve timely attendance and quality of
+              antenatal care: a multi-arm cluster randomised trial (the eRegCom trial)
+            </p>
+            <p class="m">Oxford Open Digital Health, volume 1, 2023 — co-author. <a href="#">Read the article</a></p>
+          </div>
+          <div class="record">
+            <p class="t">Integrating warehouse and pharmacy programmes with family health using FHIR</p>
+            <p class="m">Asia conference presentation, Vietnam — October 2024</p>
+          </div>
+          <div class="record">
+            <p class="t">Governance and digital transformation of primary healthcare records</p>
+            <p class="m">Annual conference presentation, University of Oslo, Norway — June 2019</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="contact" id="contact">
+    <div class="shell">
+      <h2 data-reveal>Let's talk</h2>
+      <p class="lede" data-reveal style="--d:80ms">
+        I'm glad to hear about research collaborations, health systems facing the same integration
+        problems, or engineering work that needs an architect who has shipped into production.
+      </p>
+      <a class="mail" href="mailto:ataallah.amjad@gmail.com" data-reveal style="--d:160ms">ataallah.amjad@gmail.com</a>
+
+      <dl class="reach" data-reveal style="--d:240ms">
+        <div>
+          <dt>Phone</dt>
+          <dd><a href="tel:+970599721158">+970 599 721 158</a></dd>
+        </div>
+        <div>
+          <dt>LinkedIn</dt>
+          <dd><a href="https://linkedin.com/in/ataallah" rel="me">linkedin.com/in/ataallah</a></dd>
+        </div>
+        <div>
+          <dt>Location</dt>
+          <dd>Tulkarm, Palestine</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="shell">
+      <span>© <span id="yr">2026</span> Amjad Ataallah</span>
+      <span>Built as a single HTML file. No trackers.</span>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var revealables = document.querySelectorAll("[data-reveal]");
+
+  /* --- entrance reveals --- */
+  if (reduced || !("IntersectionObserver" in window)) {
+    revealables.forEach(function (el) { el.classList.add("is-visible"); });
+  } else {
+    var revealer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+    revealables.forEach(function (el) { revealer.observe(el); });
+  }
+
+  /* --- timeline dots fill as you pass them --- */
+  var jobs = document.querySelectorAll(".job");
+  if (!reduced && "IntersectionObserver" in window) {
+    var dots = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add("is-visible"); }
+      });
+    }, { threshold: 0.25 });
+    jobs.forEach(function (job) { dots.observe(job); });
+  } else {
+    jobs.forEach(function (job) { job.classList.add("is-visible"); });
+  }
+
+  /* --- nav background once past the hero --- */
+  var nav = document.getElementById("nav");
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      nav.classList.toggle("is-stuck", window.scrollY > window.innerHeight * 0.7);
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* --- highlight the section you're reading --- */
+  var links = Array.prototype.slice.call(document.querySelectorAll(".nav-links a"));
+  var sections = links
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+
+  if ("IntersectionObserver" in window && sections.length) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (a) {
+          a.classList.toggle("is-active", a.getAttribute("href") === "#" + entry.target.id);
+        });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
 
